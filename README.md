@@ -129,3 +129,14 @@ private final MemberRepository memberRepository = new MemoryMemberRepository();
 4. 주문 Service 인터페이스 생성 - 회원 등급 별 할인금액 산출
 5. 주문 Service 구현체 생성
 6. test 코드 작성
+
+<br>
+
+### IoC와 DI
+
+	IoC: 개발자가 구현하는 코드의 흐름은 객체를 생성하고 가져다 쓰며 로직을 실행한다고 하면 IoC를 적용한 코드는 런타임 시점에 외부에서 객체를 생성하고 연결해줌으로써
+	클라이언트와 서버의 의존 관계를 맺는 것을 의미한다. 제어의 흐름을 개발자가 가져가는 것은 라이브러리이고 그렇지 않다면 프레임워크라고 할 수 있다.
+
+	DI: 인터페이스와 의존 관계를 맺고 있는 것. 그리고 IoC를 통해 의존 관계를 주입 받는 것을 DI라고 한다.  
+
+<br>
