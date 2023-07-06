@@ -1,4 +1,4 @@
-package singletone;
+package hello.core.order.singletone;
 
 public class SingletoneService {
     // class 레벨에 하나만 존재하도록 static으로 선언한다.

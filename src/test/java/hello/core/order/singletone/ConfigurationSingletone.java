@@ -1,4 +1,4 @@
-package singletone;
+package hello.core.order.singletone;
 
 import hello.core.AppConfig;
 import org.junit.jupiter.api.Test;

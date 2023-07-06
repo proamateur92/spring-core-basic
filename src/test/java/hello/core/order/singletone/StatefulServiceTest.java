@@ -1,4 +1,4 @@
-package singletone;
+package hello.core.order.singletone;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
