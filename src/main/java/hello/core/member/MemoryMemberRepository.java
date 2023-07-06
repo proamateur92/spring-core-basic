@@ -1,9 +1,12 @@
 package hello.core.member;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Component
 public class MemoryMemberRepository implements MemberRepository{
 
     // HashMap 동시성 문제가 있을 수 있다.

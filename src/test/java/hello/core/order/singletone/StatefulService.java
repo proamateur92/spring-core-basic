@@ -1,4 +1,4 @@
-package singletone;
+package hello.core.order.singletone;
 
 public class StatefulService {
     private int price; // 상태 유지 필드
