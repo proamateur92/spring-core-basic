@@ -207,4 +207,75 @@ public class AppConfig {
 }
 ```
 
+## Section6 컴포넌트 스캔
+
+<details>
+<summary>컴포넌트 스캔과 의존관계 자동 주입 시작하기</summary>
+<div markdown="1">
+
 <br>
+
+- 스프링은 설정 정보가 없어도 자동으로 스프링 빈을 등록하는 컴포넌트 스캔 기능을 제공한다.
+- 의존관계도 자동으로 주입되는 `@Autowired` 기능도 제공한다.
+- `@ComponentScan` 를 붙여 사용하고 `@Component` 가 붙은 클래스를 스프링 빈으로 등록한다.
+- `@Autowired`를 붙여 의존 관계를 설정한다. (생성자)
+
+<br>
+
+```
+// 빈으로 등록했던 구현체 클래스들에게 @Component를 붙여준다.
+
+// RateDiscountPolicy.java 
+@Component
+public class RateDiscountPolicy implements DiscountPolicy
+
+// MemoryMemberRepository.java
+@Component
+public class MemoryMemberRepository implements MemberRepository
+
+// MemberServiceImpl.java
+@Component
+public class MemberServiceImpl implements MemberService{
+
+    private final MemberRepository memberRepository;
+
+    @Autowired
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
+// OrderServiceImpl.java 
+@Component
+public class OrderServiceImpl implements OrderService{
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+```
+
+<b>@Component</b>
+![image](https://github.com/proamateur92/spring-core-basic/assets/68406448/f45f1a8d-8d6d-4fe9-97b5-f44d80528bfb)
+- 스프링 빈의 기본 이름은 클래스명을 사용하되 맨 앞글자만 소문자를 사용한다.
+- MemberServiceImpl → memberServiceImpl
+- 스프링의 빈 이름을 직접 지정하고 싶으면 `@Component(”memberService2”)` 와 같이 작성한다.
+
+<br>
+
+<b>@Autowired 의존관계 자동 주입</b>
+![image](https://github.com/proamateur92/spring-core-basic/assets/68406448/9456284a-e4ff-4724-8d0d-36673f879c39)
+- 생성자에 `@Autowired` 를 지정하면 스프링 컨테이너가 자동으로 해당 스프링 빈을 찾아서 주입한다.
+- 이때 기본 조회 전략은 타입이 같은 빈을 찾아 주입한다.
+    - `getBean(MemberRepository.class)`와 동일하다고 이해하면 된다.
+
+<br>
+
+![image](https://github.com/proamateur92/spring-core-basic/assets/68406448/0792b940-ec46-46ea-8d3e-974fee4d3b3f)
+생성자에 파라미터가 많아도 전부 자동으로 주입된다.
+
+</div>
+</details>
+
