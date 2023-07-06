@@ -166,3 +166,45 @@ private final MemberRepository memberRepository = new MemoryMemberRepository();
 ![image](https://github.com/proamateur92/spring-core-basic/assets/68406448/86b51f39-0c77-482a-95f8-03252753dd66)
 
 <br>
+
+### 싱글톤 패턴의 주의점
+
+- 싱글톤 패턴, 싱글톤 컨테이너처럼 객체 인스턴스를 하나만 생성해 공유하는 방식은 여러 클라이언트가 하나의 같은 객체 인스턴스를 공유하기 때문에 상태를 유지(stateful)하게 설계하면 안된다.
+- 무상태(stateless)로 설계해야 한다.
+    - 특정 클라이언트에 의존적인 필드가 있으면 안된다.
+    - 특정 클라이언트가 값을 변경할 수 있는 필드 가 있으면 안된다.
+    - 가급적 읽기만 가능해야 한다.
+    - 필드 대신에 자바에서 공유되지 않는 지역변수, 파라미터, ThreadLocal등을 사용해야 한다.
+- 스프링 빈의 필드에 공유 값을 설정하면 큰 장애가 발생할 수 있다.
+
+<br>
+
+### @Configuration과 싱글톤
+
+	@Configuration 이하의 @Bean들은 싱글톤으로 스프링 컨테이너에 등록된다.
+ 	이미 빈 저장소에 등록된 객체라면 더 이상 등록하지 않고 꺼내 씀으로서 싱글톤이 유지된다.
+  	따라서 MemberRepository를 생성자 호출로 가져다 쓰는 MemberServiceImpl이나 OrderServiceImpl 그리고 MemberRepository 클래스 모두 객체의 주소값이 일치함을 확인할 수 있다.
+
+```
+@Configuration
+public class AppConfig {
+    // 모두 같은 memberRepository를 사용하고 있다.
+    @Bean
+    public MemberService memberService() {
+        return new MemberServiceImpl(memberRepository());
+    }
+
+    @Bean
+    public OrderService orderService() {
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
+    }
+
+    @Bean
+    public MemberRepository memberRepository() {
+	return new MemoryMemberRepository();
+    }
+    ...
+}
+```
+
+<br>
