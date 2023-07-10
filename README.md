@@ -279,3 +279,13 @@ public class OrderServiceImpl implements OrderService{
 </div>
 </details>
 
+<br>
+
+## Section7. 빈 생명주기
+
+1. 인터페이스 방식
+2. 메서드 방식 -> 외부라이브러리를 초기화, 종료할 때 권장. initMethod, destroyMethod
+3. 애너테이션 방식 -> 권장. @PostConstruct, @PreDistroy 
+
+<br>
+
