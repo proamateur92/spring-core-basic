@@ -12,17 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor // 생성자를 만들어준다.
 public class LogDemoController {
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> myLoggerProvider;
+    private final MyLogger myLogger;
 
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest req) {
         String requestURL = req.getRequestURL().toString();
 
-        MyLogger myLogger = myLoggerProvider.getObject();
+        System.out.println("myLogger = " + myLogger.getClass());
         myLogger.setRequestURL(requestURL);
         myLogger.log("controller test");
         logDemoService.login("testId");
+
         return "OK";
     }
 }
